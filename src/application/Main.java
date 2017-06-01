@@ -3,55 +3,54 @@ package application;
 import javafx.application.Application; 
 import javafx.scene.Group; 
 import javafx.scene.Scene; 
+import javafx.scene.paint.Color; 
 import javafx.stage.Stage; 
-import javafx.scene.shape.LineTo; 
-import javafx.scene.shape.MoveTo; 
-import javafx.scene.shape.Path; 
+import javafx.scene.text.Font; 
+import javafx.scene.text.FontPosture; 
+import javafx.scene.text.FontWeight; 
+import javafx.scene.text.Text; 
          
 public class Main extends Application { 
    @Override 
-   public void start(Stage stage) { 
-      //Creating a Path 
-      Path path = new Path(); 
+   public void start(Stage stage) {       
+      //Creating a Text object 
+      Text text = new Text(); 
        
-      //Moving to the starting point 
-      MoveTo moveTo = new MoveTo(108, 71); 
-        
-      //Creating 1st line 
-      LineTo line1 = new LineTo(321, 161);  
+      //Setting font to the text 
+      text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 50)); 
        
-      //Creating 2nd line 
-      LineTo line2 = new LineTo(126,232);       
+      //setting the position of the text  
+      text.setX(50); 
+      text.setY(130);     
        
-      //Creating 3rd line 
-      LineTo line3 = new LineTo(232,52);  
+      //Setting the color 
+      text.setFill(Color.ORANGE); 
        
-      //Creating 4th line 
-      LineTo line4 = new LineTo(269, 250);   
-       
-      //Creating 4th line 
-      LineTo line5 = new LineTo(108, 71);  
-       
-      //Adding all the elements to the path 
-      path.getElements().add(moveTo); 
-      path.getElements().addAll(line1, line2, line3, line4, line5);        
+      //Setting the Stroke  
+      text.setStrokeWidth(2); 
+      
+      // Setting the stroke color
+      text.setStroke(Color.PURPLE);        
+      
+      //Setting the text to be added. 
+      text.setText("Maz Gam Editor"); 
          
       //Creating a Group object  
-      Group root = new Group(path); 
-         
+      Group root = new Group(text);   
+               
       //Creating a scene object 
       Scene scene = new Scene(root, 600, 300);  
       
       //Setting title to the Stage 
-      stage.setTitle("Drawing an arc through a path");
-      
+      stage.setTitle("Setting font to the text"); 
+         
       //Adding scene to the stage 
-      stage.setScene(scene);
-      
+      stage.setScene(scene); 
+         
       //Displaying the contents of the stage 
-      stage.show();         
-   } 
+      stage.show(); 
+   }      
    public static void main(String args[]){ 
       launch(args); 
    } 
-}       
+}     
