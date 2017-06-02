@@ -2,7 +2,8 @@ package application;
 
 import javafx.application.Application; 
 import javafx.scene.Group; 
-import javafx.scene.Scene; 
+import javafx.scene.Scene;
+import javafx.scene.effect.Glow;
 import javafx.scene.paint.Color; 
 import javafx.stage.Stage; 
 import javafx.scene.text.Font; 
@@ -25,7 +26,7 @@ public class Main extends Application {
        
       //Setting the color 
       text.setFill(Color.ORANGE); 
-       
+      
       //Setting the Stroke  
       text.setStrokeWidth(2); 
       
@@ -35,6 +36,8 @@ public class Main extends Application {
       //Setting the text to be added. 
       text.setText("maz gam editor"); 
          
+      text.setEffect(new Glow(.9));
+      
       //Creating a Group object  
       Group root = new Group(text);   
                
