@@ -1,17 +1,24 @@
 package application;
 
-import javafx.animation.ScaleTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.PathTransition; 
 import javafx.application.Application; 
 import static javafx.application.Application.launch; 
+import javafx.event.EventHandler; 
+
 import javafx.scene.Group; 
 import javafx.scene.Scene; 
+import javafx.scene.control.Button; 
+import javafx.scene.input.MouseEvent; 
 import javafx.scene.paint.Color; 
+
 import javafx.scene.shape.Circle; 
+import javafx.scene.shape.LineTo; 
+import javafx.scene.shape.MoveTo; 
+import javafx.scene.shape.Path; 
 import javafx.stage.Stage; 
 import javafx.util.Duration; 
          
-public class Main extends Application {  
+public class Main extends Application { 
    @Override 
    public void start(Stage stage) {      
       //Drawing a Circle 
@@ -22,71 +29,107 @@ public class Main extends Application {
       circle.setCenterY(135.0f); 
       
       //Setting the radius of the circle 
-      circle.setRadius(50.0f); 
+      circle.setRadius(25.0f);  
       
       //Setting the color of the circle 
       circle.setFill(Color.BROWN); 
       
       //Setting the stroke width of the circle 
-      circle.setStrokeWidth(20); 
+      circle.setStrokeWidth(20);      
        
-      TranslateTransition translateTransition = new TranslateTransition(); 
+      //Creating a Path 
+      Path path = new Path(); 
       
-      //Setting the duration of the transition  
-      translateTransition.setDuration(Duration.millis(1000)); 
+      //Moving to the staring point 
+      MoveTo moveTo = new MoveTo(208, 71);               
+      
+      //Creating 1st line 
+      LineTo line1 = new LineTo(421, 161);        
+      
+      //Creating 2nd line 
+      LineTo line2 = new LineTo(226,232); 
+      
+      //Creating 3rd line 
+      LineTo line3 = new LineTo(332,52);        
+      
+      //Creating 4th line 
+      LineTo line4 = new LineTo(369, 250);        
+      
+      //Creating 5th line 
+      LineTo line5 = new LineTo(208, 71);       
+      
+      //Adding all the elements to the path 
+      path.getElements().add(moveTo); 
+      path.getElements().addAll(line1, line2, line3, line4, line5);     
+      
+      //Creating the path transition 
+      PathTransition pathTransition = new PathTransition(); 
+      
+      //Setting the duration of the transition 
+      pathTransition.setDuration(Duration.millis(1000));       
       
       //Setting the node for the transition 
-      translateTransition.setNode(circle); 
+      pathTransition.setNode(circle); 
       
-      //Setting the value of the transition along the x axis. 
-      translateTransition.setByX(300); 
+      //Setting the path for the transition 
+      pathTransition.setPath(path); 
+      
+      //Setting the orientation of the path 
+      pathTransition.setOrientation(
+         PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
       
       //Setting the cycle count for the transition 
-      translateTransition.setCycleCount(50); 
-      
-      //Setting auto reverse value to false 
-      translateTransition.setAutoReverse(true); 
-      
-      //Playing the animation 
-      translateTransition.play(); 
-      
-      //Creating scale Transition 
-      ScaleTransition scaleTransition = new ScaleTransition(); 
-      
-      //Setting the duration for the transition 
-      scaleTransition.setDuration(Duration.millis(1000)); 
-      
-      //Setting the node for the transition 
-      scaleTransition.setNode(circle); 
-      
-      //Setting the dimensions for scaling 
-      scaleTransition.setByY(1.5); 
-      scaleTransition.setByX(1.5); 
-      
-      //Setting the cycle count for the translation 
-      scaleTransition.setCycleCount(50); 
+      pathTransition.setCycleCount(50); 
       
       //Setting auto reverse value to true 
-      scaleTransition.setAutoReverse(true); 
+      pathTransition.setAutoReverse(false);
       
-      //Playing the animation 
-      scaleTransition.play(); 
-         
+      //Creating play button 
+      Button playButton = new Button("Play"); 
+      playButton.setLayoutX(300); 
+      playButton.setLayoutY(250); 
+       
+      circle.setOnMouseClicked (new EventHandler<javafx.scene.input.MouseEvent>() { 
+         @Override 
+         public void handle(javafx.scene.input.MouseEvent e) { 
+            System.out.println("Hello World"); 
+            circle.setFill(Color.DARKSLATEBLUE);             
+         } 
+      });   
+      playButton.setOnMouseClicked((new EventHandler<MouseEvent>() { 
+         public void handle(MouseEvent event) { 
+            System.out.println("Hello World");  
+            pathTransition.play(); 
+         } 
+      })); 
+       
+      //Creating stop button 
+      Button stopButton = new Button("stop"); 
+      stopButton.setLayoutX(250); 
+      stopButton.setLayoutY(250); 
+      
+      stopButton.setOnMouseClicked((new EventHandler<MouseEvent>() { 
+         public void handle(MouseEvent event) { 
+            System.out.println("Hello World"); 
+            pathTransition.stop(); 
+         } 
+      }));
       //Creating a Group object  
-      Group root = new Group(circle); 
+      Group root = new Group(circle, playButton, stopButton); 
          
-      //Creating a scene object  
+      //Creating a scene object 
       Scene scene = new Scene(root, 600, 300); 
+      scene.setFill(Color.LAVENDER);  
       
       //Setting title to the Stage 
-      stage.setTitle("Scale transition example"); 
+      stage.setTitle("Convenience Methods Example");  
          
       //Adding scene to the stage 
       stage.setScene(scene); 
          
       //Displaying the contents of the stage 
       stage.show(); 
-   }      
+   } 
    public static void main(String args[]){ 
       launch(args); 
    } 
