@@ -1,48 +1,85 @@
 package application;
 
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application; 
+import static javafx.application.Application.launch; 
 import javafx.scene.Group; 
 import javafx.scene.Scene; 
 import javafx.scene.paint.Color; 
+import javafx.scene.shape.Circle; 
 import javafx.stage.Stage; 
-import javafx.scene.text.Font; 
-import javafx.scene.text.FontPosture; 
-import javafx.scene.text.FontWeight; 
-import javafx.scene.text.Text; 
+import javafx.util.Duration; 
          
-public class Main extends Application { 
+public class Main extends Application {  
    @Override 
-   public void start(Stage stage) {       
-      //Creating a Text object 
-      Text text = new Text(); 
-       
-      //Setting font to the text 
-      text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 50)); 
-       
-      //setting the position of the text  
-      text.setX(50); 
-      text.setY(130);     
-       
-      //Setting the color 
-      text.setFill(Color.ORANGE); 
-       
-      //Setting the Stroke  
-      text.setStrokeWidth(2); 
+   public void start(Stage stage) {      
+      //Drawing a Circle 
+      Circle circle = new Circle(); 
       
-      // Setting the stroke color
-      text.setStroke(Color.PURPLE);        
+      //Setting the position of the circle 
+      circle.setCenterX(300.0f); 
+      circle.setCenterY(135.0f); 
       
-      //Setting the text to be added. 
-      text.setText("Maz Gam Editor"); 
+      //Setting the radius of the circle 
+      circle.setRadius(50.0f); 
+      
+      //Setting the color of the circle 
+      circle.setFill(Color.BROWN); 
+      
+      //Setting the stroke width of the circle 
+      circle.setStrokeWidth(20); 
+       
+      TranslateTransition translateTransition = new TranslateTransition(); 
+      
+      //Setting the duration of the transition  
+      translateTransition.setDuration(Duration.millis(1000)); 
+      
+      //Setting the node for the transition 
+      translateTransition.setNode(circle); 
+      
+      //Setting the value of the transition along the x axis. 
+      translateTransition.setByX(300); 
+      
+      //Setting the cycle count for the transition 
+      translateTransition.setCycleCount(50); 
+      
+      //Setting auto reverse value to false 
+      translateTransition.setAutoReverse(true); 
+      
+      //Playing the animation 
+      translateTransition.play(); 
+      
+      //Creating scale Transition 
+      ScaleTransition scaleTransition = new ScaleTransition(); 
+      
+      //Setting the duration for the transition 
+      scaleTransition.setDuration(Duration.millis(1000)); 
+      
+      //Setting the node for the transition 
+      scaleTransition.setNode(circle); 
+      
+      //Setting the dimensions for scaling 
+      scaleTransition.setByY(1.5); 
+      scaleTransition.setByX(1.5); 
+      
+      //Setting the cycle count for the translation 
+      scaleTransition.setCycleCount(50); 
+      
+      //Setting auto reverse value to true 
+      scaleTransition.setAutoReverse(true); 
+      
+      //Playing the animation 
+      scaleTransition.play(); 
          
       //Creating a Group object  
-      Group root = new Group(text);   
-               
-      //Creating a scene object 
-      Scene scene = new Scene(root, 600, 300);  
+      Group root = new Group(circle); 
+         
+      //Creating a scene object  
+      Scene scene = new Scene(root, 600, 300); 
       
       //Setting title to the Stage 
-      stage.setTitle("Setting font to the text"); 
+      stage.setTitle("Scale transition example"); 
          
       //Adding scene to the stage 
       stage.setScene(scene); 
@@ -53,4 +90,4 @@ public class Main extends Application {
    public static void main(String args[]){ 
       launch(args); 
    } 
-}     
+}
